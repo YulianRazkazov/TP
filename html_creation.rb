@@ -4,9 +4,16 @@ require 'uri'
 
 cgi=CGI.new("html4")
 equations=[]
+results=[]
 File.open("equations.txt", "r") do |file|
 	while(line=file.gets)
 		equations << line
+	end
+end
+
+File.open("results.txt", "r") do |file|
+	while(line=file.gets)
+		results << line
 	end
 end
 
@@ -41,7 +48,36 @@ html=cgi.html {
 		}
 	}
 }
+`rm equations.txt`
+
+html_results=cgi.html {
+	cgi.head {
+		"<meta charset='UTF-8'>"+
+		cgi.title{"Test #{ARGV[0]}"}
+	}+
+
+	cgi.body {
+		cgi.pre{"1. #{results[0]}"}+
+		cgi.pre{"2. #{results[1]}"}+
+		cgi.pre{"3. #{results[2]}"}+
+		cgi.pre{"4. #{results[3]}"}+
+		cgi.pre{"5. #{results[4]}"}+
+		cgi.pre{"6. #{results[5]}"}+
+		cgi.pre{"7. #{results[6]}"}+
+		cgi.pre{"8. #{results[7]}"}+
+		cgi.pre{"9. #{results[8]}"}+
+		cgi.pre{"10. #{results[9]}"}
+	}
+}
+`rm results.txt`
 
 File.open("test-#{ARGV[0]}.html", "w") do |file|
 	file << html
 end
+
+File.open("test-results-#{ARGV[0]}.html", "w") do |file|
+	file << html_results
+end
+
+`wkhtmltopdf test-#{ARGV[0]}.html test-#{ARGV[0]}.pdf`
+`wkhtmltopdf test-results-#{ARGV[0]}.html test-results-#{ARGV[0]}.pdf`
