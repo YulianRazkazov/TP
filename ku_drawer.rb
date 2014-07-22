@@ -22,14 +22,14 @@ class MathDrawer
 	end
 end
 
-if Dir.exists?("kvadra")
-	'rm -f kvadra/ -r'
+if Dir.exists?("graphics")
+	'rm -f graphics/ -r'
 end
 
-`mkdir kvadra`
+`mkdir graphics`
 i=1
 File.open(ARGV[0],"r").each do |line|
-	d=Drawer.new "kvadra/#{i}.svg",300,300
+	d=Drawer.new "graphics/#{i}.svg",300,300
 	d.start
 	d.cs
 	m=MathDrawer.new d
