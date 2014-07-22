@@ -1,5 +1,4 @@
 TP
-==
 
 How to run :
 ruby starter.rb 
